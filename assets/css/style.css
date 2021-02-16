@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+*{
+  box-sizing: border-box;
+  text-decoration: none;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  color: rgb(0, 2, 19);
+}
+
+h1{
+  margin-bottom: 95px;
+  font-size: 2.2rem;
+}
+
+.display-flex-column{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.display-flex-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: center; 
+  align-items: center;
+}
+
+.card__section{
+  max-width: 1100px;
+  min-width: 1100px;
+  height: 520px;
+  margin-bottom: 40px;
+  justify-content: left;
+  overflow: hidden;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  background-color: rgba(245, 245, 245, 0.803);
+  cursor: grab;
+}
+
+.card__city{
+  min-width: 360px;
+  max-width: 360px;
+  height: 400px;
+  margin: auto 35px;
+  border: 2px;
+  border-radius: 6px;
+  background-color: rgb(255, 255, 255);
+  scroll-snap-align: start;
+  cursor: pointer;
+  box-shadow: 0px 10px 20px 2px rgba(128, 128, 128, 0.468);
+}
+
+.card__city:hover{
+  transform: translate(0px, -5px) scale(1.055);
+  transition-duration: 450ms;
+}
+
+.card__city--img{
+  width: 100%;
+  height: 210px;
+  /* display: flex;
+  justify-content: center;  
+  align-items: center; */
+  background-position: center;
+  background-size: cover;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.card__city--description{
+  margin: 20px;
+  font-size: 0.8rem;
+}
+
+.card__city--description h3{
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding: 15px auto;
+  text-align: left;
+}
+
+.card__city--description span{
+  /* display: block; */
+  text-align: start;
+  display: -webkit-box;
+  line-height: 1.7;
+  -webkit-line-clamp: 4;
+  min-height: 70px;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.border-gold{
+  border: solid rgba(255, 255, 52, 0.842);
+  border-radius: 9px;
+}
+
+@media (min-width: 992px){
+  html{
+    font-size: 1.075rem;
+  }
+}
