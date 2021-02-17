@@ -3,6 +3,7 @@
 *{
   box-sizing: border-box;
   text-decoration: none;
+  list-style-type: none;
   text-align: center;
   font-family: 'Montserrat', sans-serif;
   color: rgb(0, 2, 19);
@@ -62,7 +63,7 @@ main{
 .card__city{
   min-width: 360px;
   max-width: 360px;
-  height: 400px;
+  height: 420px;
   margin: auto 35px;
   border: 2px;
   border-radius: 6px;
@@ -121,6 +122,24 @@ main{
 .border-gold{
   border: solid rgba(255, 255, 52, 0.842);
   border-radius: 9px;
+}
+
+.star-wrapper{
+  width: 120px;
+  height: 40px;
+  padding: 0;
+  justify-content: space-between;
+}
+
+.star-color{
+  color: rgb(247, 177, 55);
+}
+
+.star_half-color{
+  background-color: rgba(0, 0, 0, 0);
+  background-image: linear-gradient(to right, rgb(247, 177, 55)30%, rgba(0, 128, 0, 0) 70%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
 }
 
 @media (min-width: 992px){
