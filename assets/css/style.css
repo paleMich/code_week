@@ -129,6 +129,7 @@ main{
   height: 40px;
   padding: 0;
   justify-content: space-between;
+  margin-left: auto;
 }
 
 .star-color{
