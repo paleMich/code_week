@@ -6,6 +6,8 @@ const listPortogallo = document.querySelector('#section-pt');
 const listGrecia = document.querySelector('#section-gr');
 const listGermania = document.querySelector('#section-de');
 
+const input = document.querySelector('.searchCity');
+const ul = document.querySelector(".searchCity__list");
 
 const state = {
   config: {
@@ -41,22 +43,20 @@ const getDataMapped = async () => {
   return state.cities;
 }
 
-function createCards(country, imgUrl, city, description, popular, weight) {
+function createCards(city) { // country, imgUrl, city, description, popular, weight
 
   const cardCity = document.createElement('div');           // contenitore intera card 
   const cardImg = document.createElement('img');            // contenitore immagine
   const cardDetails = document.createElement('div');        // contenitore descrizione 
   const starWrapper = document.createElement('ul');
-
-  const nameSection = document.createElement('h2');                    
+                   
   // const image = document.createElement('img');
   const nameCity = document.createElement('h3');
   const cardDescription = document.createElement('span');
 
-  nameSection.textContent = country;
-  cardImg.src = imgUrl;
-  nameCity.textContent = city;
-  cardDescription.textContent = description                 /* .substring(0, 350) */;
+  cardImg.src = city.img;
+  nameCity.textContent = city.name_city;  
+  cardDescription.textContent = city.content;                  /* .substring(0, 350) */;
 
   // change style
   cardCity.classList.add('card__city');
@@ -70,13 +70,13 @@ function createCards(country, imgUrl, city, description, popular, weight) {
   
   cardCity.append(cardImg, cardDetails);
 
-  // countrySection.appendChild(nameSection);
-
-  showInPopular(cardCity, popular);
-  showRating(weight, starWrapper);
+  showInPopular(cardCity, city.show_in_popular);
+  showRating(city.weight, starWrapper);
 
   return cardCity;
 }
+
+
 
 function showInPopular(card, popularCity){
   if (popularCity) {
@@ -86,7 +86,7 @@ function showInPopular(card, popularCity){
 
 function showRating(weight, node){
   let wholeStars = Math.floor(weight);
-  console.log(wholeStars); 
+  // console.log(wholeStars); 
 
   if (wholeStars >= 10) {
     for (let i = 0; i < 4; i++) {
@@ -101,7 +101,6 @@ function showRating(weight, node){
     }
   }
   
-
   // switch(weight){
   //   case weight >= 16:
   //     console.log('16');
@@ -120,12 +119,12 @@ function showRating(weight, node){
   // }
 }
 
-async function renderCards(country, list, node) {
+function renderCards(country, node) {
   //filter per le country
-  const result = await list.filter((data) => data.country === country)     //'Francia' || 'Italia' || 'Spagna' || 'Portogallo' || 'Grecia' || 'Germania'
+  const result = state.cities.filter((data) => data.country === country)    
   
   result.forEach((data) => {
-    const card = createCards(data.country, data.img, data.name_city, data.content, data.show_in_popular, data.weight);
+    const card = createCards(data);      
     
     node.appendChild(card);
   }); 
@@ -134,15 +133,24 @@ async function renderCards(country, list, node) {
 function runHtmlOver() {
   getDataMapped()
   .then(() => {
-      console.log('new array mapped', state.cities)
-      renderCards('Francia', state.cities, listFrancia);        
-      renderCards('Italia', state.cities, listItalia);        
-      renderCards('Spagna', state.cities, listSpagna);        
-      renderCards('Portogallo', state.cities, listPortogallo);        
-      renderCards('Grecia', state.cities, listGrecia);        
-      renderCards('Germania', state.cities, listGermania);        
+      // console.log('new array mapped', state.cities)
+      renderCards('Francia', listFrancia);        
+      renderCards('Italia', listItalia);        
+      renderCards('Spagna', listSpagna);        
+      renderCards('Portogallo', listPortogallo);        
+      renderCards('Grecia', listGrecia);        
+      renderCards('Germania', listGermania);        
     })
-}
+  }
+  
+// let typingTimer;
+// input.addEventListener("input", () => {
+//   clearTimeout(typingTimer);
+//   if (input.value) {
+//     typingTimer = setTimeout(searchBar, 2500);
+//   }
+// });
 
+// input.addEventListener("input", searchBar);
 
-document.addEventListener('DOMContentLoaded', runHtmlOver)
+document.addEventListener('DOMContentLoaded', runHtmlOver);
