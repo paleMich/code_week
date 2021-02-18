@@ -76,7 +76,23 @@ function createCards(city) { // country, imgUrl, city, description, popular, wei
   return cardCity;
 }
 
+// sezione input
+function renderCities(list) {
+  listFrancia.innerHTML = "";
 
+  list.forEach(createCards);
+}
+
+function searchBar(evt) {
+  const arr = state.cities;
+  const text = evt.target.value.toLowerCase();
+
+  const list = arr.filter((data) => data.name_city.toLowerCase().includes(text));
+  console.log(list)
+
+  renderCities(list);
+}
+// end sezione input
 
 function showInPopular(card, popularCity){
   if (popularCity) {
@@ -151,6 +167,6 @@ function runHtmlOver() {
 //   }
 // });
 
-// input.addEventListener("input", searchBar);
+input.addEventListener("input", searchBar);
 
 document.addEventListener('DOMContentLoaded', runHtmlOver);
