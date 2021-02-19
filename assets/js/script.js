@@ -19,8 +19,7 @@ const state = {
   config: {
     endpoint: "https://api.musement.com/api/v3/cities"
   },
-  cities: null,
-  country: null
+  cities: null
 }
 
 // mi prendo solo i dati mappati
@@ -40,13 +39,6 @@ const getDataMapped = async () => {
         content: item.content,
         weight: item.weight,
         show_in_popular: item.show_in_popular,
-      }
-    });
-
-    state.country = json.map((item) => {
-      
-      return{
-        country: item.country.name
       }
     });
 
@@ -104,31 +96,101 @@ function renderCities(list, node, select) {
   });
   
   if (list.length) {
-    noResults.classList.remove("no-results--is-visible");
+    node.classList.remove("no-results--is-visible");
   } else {
-    noResults.classList.add("no-results--is-visible");
+    const divNoResults = document.createElement('div')
+    const sorry = document.createElement('h3');
+    const different = document.createElement('p');
+  
+    sorry.textContent = 'Sorry, no city found in this country.';
+    different.textContent = 'Try with a different search.';
+  
+    divNoResults.append(sorry, different)
+  
+    node.appendChild(divNoResults)
+    node.classList.add("no-results--is-visible");
   }
 }
 
-function searchBar(evt) {
+function countryMap(list, country) {
+  const arr = country;
+
+  const node = list.filter((data) => data.country.includes(arr));
+  
+  return node;
+}
+
+function searchBarFr(evt) {
   const arr = state.cities;
 
   const text = evt.target.value.toLowerCase();
 
   const list = arr.filter((data) => data.name_city.toLowerCase().includes(text));
-  console.log(list)
 
-  countryMapFr(list)
+  const arrMap = countryMap(list, 'Francia')
+
+  renderCities(arrMap, listFrancia, inputFr);
 }
 
-function countryMapFr(list) {
-  const arr = state.country;
+function searchBarIt(evt) {
+  const arr = state.cities;
 
-  const node = list.filter((data) => data.country.includes('Francia'))
-  
-  renderCities(node, listFrancia, inputFr);
+  const text = evt.target.value.toLowerCase();
+
+  const list = arr.filter((data) => data.name_city.toLowerCase().includes(text));
+
+  const arrMap = countryMap(list, 'Italia')
+
+  renderCities(arrMap, listItalia, inputIt);
 }
 
+function searchBarEs(evt) {
+  const arr = state.cities;
+
+  const text = evt.target.value.toLowerCase();
+
+  const list = arr.filter((data) => data.name_city.toLowerCase().includes(text));
+
+  const arrMap = countryMap(list, 'Spagna')
+
+  renderCities(arrMap, listSpagna, inputEs);
+}
+
+function searchBarPt(evt) {
+  const arr = state.cities;
+
+  const text = evt.target.value.toLowerCase();
+
+  const list = arr.filter((data) => data.name_city.toLowerCase().includes(text));
+
+  const arrMap = countryMap(list, 'Portogallo')
+
+  renderCities(arrMap, listPortogallo, inputPt);
+}
+
+function searchBarGr(evt) {
+  const arr = state.cities;
+
+  const text = evt.target.value.toLowerCase();
+
+  const list = arr.filter((data) => data.name_city.toLowerCase().includes(text));
+
+  const arrMap = countryMap(list, 'Grecia')
+
+  renderCities(arrMap, listGrecia, inputGr);
+}
+
+function searchBarDe(evt) {
+  const arr = state.cities;
+
+  const text = evt.target.value.toLowerCase();
+
+  const list = arr.filter((data) => data.name_city.toLowerCase().includes(text));
+
+  const arrMap = countryMap(list, 'Germania')
+
+  renderCities(arrMap, listGermania, inputDe);
+}
 // end sezione input
 
 function showInPopular(card, popularCity){
@@ -204,7 +266,12 @@ function runHtmlOver() {
 //   }
 // });
 
-document.addEventListener("input", searchBar);
+inputFr.addEventListener("input", searchBarFr);
+inputIt.addEventListener("input", searchBarIt);
+inputEs.addEventListener("input", searchBarEs); 
+inputPt.addEventListener("input", searchBarPt); 
+inputGr.addEventListener("input", searchBarGr); 
+inputDe.addEventListener("input", searchBarDe); 
 // inputIt.addEventListener("input", searchBar);
 
 document.addEventListener('DOMContentLoaded', runHtmlOver);

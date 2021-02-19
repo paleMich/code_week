@@ -39,17 +39,22 @@ main{
   height: 800px;
   margin-bottom: 30px;
   border-bottom: 1px solid rgba(150, 150, 150, 0.612);
+  text-align: center;
 }
 
 input{
   width: 280px;
+  padding: 6px;
+  border: initial;
+  border-radius: 6px;
+  box-shadow: 0 2px 15px -7px black;
 }
 
 .card__section > h2{
   font-size: 1.8rem;
   font-weight: 700;
   width: 100%;
-  text-align: left;
+  /* text-align: left; */
 }
 
 .card__wrapper{
