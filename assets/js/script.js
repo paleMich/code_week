@@ -6,7 +6,12 @@ const listPortogallo = document.querySelector('#section-pt');
 const listGrecia = document.querySelector('#section-gr');
 const listGermania = document.querySelector('#section-de');
 
-const input = document.querySelector('.searchCity');
+const inputFr = document.querySelector('#search-fr');
+const inputIt = document.querySelector('#search-it');
+const inputEs = document.querySelector('#search-es');
+const inputPt = document.querySelector('#search-pt');
+const inputGr = document.querySelector('#search-gr');
+const inputDe = document.querySelector('#search-de');
 const ul = document.querySelector('.searchCity__list');
 const noResults = document.querySelector('.no-results')
 
@@ -14,7 +19,8 @@ const state = {
   config: {
     endpoint: "https://api.musement.com/api/v3/cities"
   },
-  cities: null
+  cities: null,
+  country: null
 }
 
 // mi prendo solo i dati mappati
@@ -34,6 +40,13 @@ const getDataMapped = async () => {
         content: item.content,
         weight: item.weight,
         show_in_popular: item.show_in_popular,
+      }
+    });
+
+    state.country = json.map((item) => {
+      
+      return{
+        country: item.country.name
       }
     });
 
@@ -81,17 +94,20 @@ function createCards(city) { // country, imgUrl, city, description, popular, wei
 function renderCities(list) {
   listFrancia.innerHTML = "";
 
-  const arrMap = list.map((data) => data.country)
-  console.log(arrMap)
-
   list.forEach((data) => {
-    if (data.country === arrMap.value) {                 /* .includes(arrMap) */
+    if (data.country === inputFr.name) {                 /* .includes(arrMap) */
       
       const card = createCards(data)
   
       listFrancia.appendChild(card)
     }
   });
+  
+  if (list.length) {
+    noResults.classList.remove("no-results--is-visible");
+  } else {
+    noResults.classList.add("no-results--is-visible");
+  }
 }
 
 function searchBar(evt) {
@@ -104,12 +120,8 @@ function searchBar(evt) {
 
   renderCities(list);
 
-  if (list.length) {
-    noResults.classList.remove("no-results--is-visible");
-  } else {
-    noResults.classList.add("no-results--is-visible");
-  }
 }
+
 // end sezione input
 
 function showInPopular(card, popularCity){
@@ -178,13 +190,14 @@ function runHtmlOver() {
   }
   
 // let typingTimer;
-// input.addEventListener("input", () => {          /* passa evt alla funzione */
+// inputFr.addEventListener("input", () => {         /* passa evt alla funzione */
 //   clearTimeout();
-//   if (input.value) {
-//     typingTimer = setTimeout(searchBar, 2500);
+//   if (inputFr.value) {
+//     typingTimer = setTimeout(searchBar(), 2500);
 //   }
 // });
 
-input.addEventListener("input", searchBar);
+document.addEventListener("input", searchBar);
+// inputIt.addEventListener("input", searchBar);
 
 document.addEventListener('DOMContentLoaded', runHtmlOver);
