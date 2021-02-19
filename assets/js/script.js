@@ -81,10 +81,16 @@ function createCards(city) { // country, imgUrl, city, description, popular, wei
 function renderCities(list) {
   listFrancia.innerHTML = "";
 
-  list.forEach((data) => {
-    const card = createCards(data)
+  const arrMap = list.map((data) => data.country)
+  console.log(arrMap)
 
-    listFrancia.appendChild(card)
+  list.forEach((data) => {
+    if (data.country === arrMap.value) {                 /* .includes(arrMap) */
+      
+      const card = createCards(data)
+  
+      listFrancia.appendChild(card)
+    }
   });
 }
 
@@ -172,7 +178,7 @@ function runHtmlOver() {
   }
   
 // let typingTimer;
-// input.addEventListener("input", () => {
+// input.addEventListener("input", () => {          /* passa evt alla funzione */
 //   clearTimeout();
 //   if (input.value) {
 //     typingTimer = setTimeout(searchBar, 2500);
