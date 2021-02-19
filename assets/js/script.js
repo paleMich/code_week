@@ -7,7 +7,8 @@ const listGrecia = document.querySelector('#section-gr');
 const listGermania = document.querySelector('#section-de');
 
 const input = document.querySelector('.searchCity');
-const ul = document.querySelector(".searchCity__list");
+const ul = document.querySelector('.searchCity__list');
+const noResults = document.querySelector('.no-results')
 
 const state = {
   config: {
@@ -45,7 +46,7 @@ const getDataMapped = async () => {
 
 function createCards(city) { // country, imgUrl, city, description, popular, weight
 
-  const cardCity = document.createElement('div');           // contenitore intera card 
+  const cardCity = document.createElement('li');           // contenitore intera card 
   const cardImg = document.createElement('img');            // contenitore immagine
   const cardDetails = document.createElement('div');        // contenitore descrizione 
   const starWrapper = document.createElement('ul');
@@ -80,17 +81,28 @@ function createCards(city) { // country, imgUrl, city, description, popular, wei
 function renderCities(list) {
   listFrancia.innerHTML = "";
 
-  list.forEach(createCards);
+  list.forEach((data) => {
+    const card = createCards(data)
+
+    listFrancia.appendChild(card)
+  });
 }
 
 function searchBar(evt) {
   const arr = state.cities;
+
   const text = evt.target.value.toLowerCase();
 
   const list = arr.filter((data) => data.name_city.toLowerCase().includes(text));
   console.log(list)
 
   renderCities(list);
+
+  if (list.length) {
+    noResults.classList.remove("no-results--is-visible");
+  } else {
+    noResults.classList.add("no-results--is-visible");
+  }
 }
 // end sezione input
 
@@ -161,7 +173,7 @@ function runHtmlOver() {
   
 // let typingTimer;
 // input.addEventListener("input", () => {
-//   clearTimeout(typingTimer);
+//   clearTimeout();
 //   if (input.value) {
 //     typingTimer = setTimeout(searchBar, 2500);
 //   }
