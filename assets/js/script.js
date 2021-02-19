@@ -91,15 +91,15 @@ function createCards(city) { // country, imgUrl, city, description, popular, wei
 }
 
 // sezione input
-function renderCities(list) {
-  listFrancia.innerHTML = "";
+function renderCities(list, node, select) {
+  node.innerHTML = "";
 
   list.forEach((data) => {
-    if (data.country === inputFr.name) {                 /* .includes(arrMap) */
+    if (data.country === select.name) {                 /* .includes(arrMap) */
       
       const card = createCards(data)
   
-      listFrancia.appendChild(card)
+      node.appendChild(card)
     }
   });
   
@@ -118,8 +118,15 @@ function searchBar(evt) {
   const list = arr.filter((data) => data.name_city.toLowerCase().includes(text));
   console.log(list)
 
-  renderCities(list);
+  countryMapFr(list)
+}
 
+function countryMapFr(list) {
+  const arr = state.country;
+
+  const node = list.filter((data) => data.country.includes('Francia'))
+  
+  renderCities(node, listFrancia, inputFr);
 }
 
 // end sezione input
